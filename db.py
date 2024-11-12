@@ -39,13 +39,21 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     username = Column(String(50), unique=True, nullable=False)
     email = Column(String(50), nullable=False)
+    is_admin = Column(Boolean, default=False)
+
+#     user = db.query(User).get(1) add user to admin
+#     user.is_admin = True
+#     db.commit()
+
+
+
 
 
 class Admin(Base):
     __tablename__ = 'admin'
 
     id = Column(Integer, primary_key=True)
-    user_id = Column(String(50), db.ForeignKey('user.id'), nullable=False)
+    is_user = Column(Boolean, default=False)
 
 
 class Tour(Base):
