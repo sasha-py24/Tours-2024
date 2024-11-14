@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+
+{% block content %}
+
+        <button type="button" class="btn btn-lg btn-primary" disabled>Add Tour</button>
+        <button type="button" class="btn btn-secondary btn-lg" disabled>Registration</button>
+
+    {% for t in tours %}
+
+        <h3>{{ t.name }}</h3>
+
+    {% endfor %}
+{% endblock %}
+
+
+
+{% block modals %}
+
+
+
+{% endblock %}
+
+
+
+{% block scripts %}
+
+  <script src="/static/js/index.js"></script>
+
+{% endblock %}
