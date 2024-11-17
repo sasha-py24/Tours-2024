@@ -5,10 +5,10 @@ from sqlalchemy.orm import Session
 from db import get_db, User, Admin, Tour
 import datetime
 
-@app.route('/')
+@app.get('/', response_class=HTMLResponse)
 def index(request: Request, db: Session = Depends(get_db)):  # параметр щоб дістати щось з бд
-    # tours = db.query(Tour).all()'tours': tours,
-    return templates.TemplateResponse('index.html', {'title': 'Tours', 'request': request})
+    tours = db.query(Tour).all()
+    return templates.TemplateResponse('index.html', {'tours': tours, 'request': request})
 
 
 @app.post('/create-tour')
