@@ -28,8 +28,8 @@ class ModelMetaDatesMixin(Base):    # розширити функціонал і
 
     __abstract__ = True             # ми не додаємо цей модуль в бд, але наслідуємо його в інших. Не дістаємо дані звідси і тд
 
-    created_at = Column(DateTime, default=datetime.utcnow)
-    modified_at = Column(DateTime, default=datetime.utcnow)
+    start_at = Column(DateTime, default=datetime.utcnow)
+    end_at = Column(DateTime, default=datetime.utcnow)
 
 
 
