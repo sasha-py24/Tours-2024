@@ -9,3 +9,12 @@ import datetime
 def index(request: Request, db: Session = Depends(get_db)):  # параметр щоб дістати щось з бд
     # tours = db.query(Tour).all()'tours': tours,
     return templates.TemplateResponse('index.html', {'title': 'Tours', 'request': request})
+
+
+@app.route('/create-tour')
+def index(name: str = Form(), db: Session = Depends(get_db)):  # параметр щоб дістати щось з бд
+    tour = Tour(name=name)
+    db.add(tour)
+    db.commit()
+    db.refresh(tour)
+    return {}
