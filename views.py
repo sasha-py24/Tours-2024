@@ -18,3 +18,6 @@ def create_tour(name=Form(), db: Session = Depends(get_db)):  # параметр
     db.commit()
     db.refresh(tour)
     return {}
+
+
+
