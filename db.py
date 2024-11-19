@@ -60,6 +60,7 @@ class Tour(Base):
     __tablename__ = 'tour'          # як буде називатись табл в SQl
 
     id = Column(Integer, primary_key=True)
+    name = Column(String(50), unique=True, nullable=False)
     city = Column(String(50), unique=True, nullable=False)
     days = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Integer, nullable=False)
