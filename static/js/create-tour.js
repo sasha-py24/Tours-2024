@@ -13,21 +13,27 @@ $('#saveTour').click(function(){
 
             'success': function(response){
 
+               let tours =  document.getElementById(`projectTasks${response.tour_id}`);
+               let newTour = ` <tr>
+                                    <td>${$('#tourName').val()}</td>
+                                    <td>${$('#tourCity').val()}</td>
+                                    <td>${$('#tourDays').val()}</td>
+                                    <td>${$('#tourPrice').val()}</td>
+                                    <td>${$('#tourDate').val()}</td>
 
-//               let tours =  document.getElementById(`tour${response.tour_id}`);
-//               let newTask = ` <tr>
-//                                    <td>${$('#taskName').val()}</td>
-//                                    <td>${$('#taskDeadLine').val()}</td>
-//                                    <td>${$('#taskPriority').val()}</td>
-//                                    <td><p class="text-danger">Not Done</p></td>
-//                               </tr>`
+                               </tr>`;
 
-               tasks.innerHTML += `<h4>${$(`#tourName`).val()}</h4>`;
-                $('#tourName').val(),
-                $('#tourCity').val(),
-                $('#tourDays').val(),
-                $('#tourPrice').val(),
-                $('#tourDate').val()
+
+            toursDiv.innerHTML = `<h3>${$('#tourName').val()}</h3>` + toursDiv.innerHTML;
+            toursDiv.innerHTML = `<h3>${$('#tourCity').val()}</h3>` + toursDiv.innerHTML;
+            toursDiv.innerHTML = `<h3>${$('#tourDays').val()}</h3>` + toursDiv.innerHTML;
+            toursDiv.innerHTML = `<h3>${$('#tourPrice').val()}</h3>` + toursDiv.innerHTML;
+            toursDiv.innerHTML = `<h3>${$('#tourDate').val()}</h3>` + toursDiv.innerHTML;
+                $('#tourName').val(''),
+                $('#tourCity').val(''),
+                $('#tourDays').val(''),
+                $('#tourPrice').val(''),
+                $('#tourDate').val('')
         }
     });
 });
