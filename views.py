@@ -12,8 +12,8 @@ def index(request: Request, db: Session = Depends(get_db)):  # параметр 
 
 
 @app.post('/create-tour')
-def create_tour(name=Form(), db: Session = Depends(get_db)):  # параметр щоб дістати щось з бд
-    tour = Tour(name=name)
+def create_tour(name=Form(), city=Form(), days=Form(), price=Form(), date=Form(), db: Session = Depends(get_db)):  # параметр щоб дістати щось з бд
+    tour = Tour(name=name, city=city, days=days, price=price, date=date)
     db.add(tour)
     db.commit()
     db.refresh(tour)
