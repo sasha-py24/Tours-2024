@@ -12,7 +12,7 @@ def index(request: Request, db: Session = Depends(get_db)):  # параметр 
 
 
 @app.post('/create-tour')
-def index(name: str = Form(), db: Session = Depends(get_db)):  # параметр щоб дістати щось з бд
+def create_tour(name=Form(), db: Session = Depends(get_db)):  # параметр щоб дістати щось з бд
     tour = Tour(name=name)
     db.add(tour)
     db.commit()
