@@ -22,7 +22,7 @@ $('#saveTour').click(function(){
                                         <p class="text-success">Done</p>
                                     </td>`
 
-                document.getElementById(`tour${response.id}`).innerHTML = addTour;
+                document.getElementById(`tour${response.id}`).innerHTML = addTour
 
         }
 
@@ -81,3 +81,13 @@ $('#saveTour').click(function(){
 //     })
 //});
 
+//            toursDiv.innerHTML = `<h3>${$('#tourName').val()}</h3>` + toursDiv.innerHTML;
+//            toursDiv.innerHTML = `<h3>${$('#tourCity').val()}</h3>` + toursDiv.innerHTML;
+//            toursDiv.innerHTML = `<h3>${$('#tourDays').val()}</h3>` + toursDiv.innerHTML;
+//            toursDiv.innerHTML = `<h3>${$('#tourPrice').val()}</h3>`+ toursDiv.innerHTML;
+//            toursDiv.innerHTML = `<h3>${$('#tourDate').val()}</h3>` + toursDiv.innerHTML;
+//                $('#tourName').val(''),
+//                $('#tourCity').val(''),
+//                $('#tourDays').val(''),
+//                $('#tourPrice').val(''),
+//                $('#tourDate').val('')
