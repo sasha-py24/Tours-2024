@@ -11,12 +11,10 @@
   {% for t in tours %}
   <div class="card-body">
     <div class="card-title">
-
     </div>
     <div class="card-text" id="tourCard{{ t.id }}">
         <table style="width:100%" border="1px">
                     <tbody>
-
                       <tr id="tour{{ tour.id }}">
                             <td></td>
                             <td>{{ tour.city }}</td>
@@ -24,27 +22,27 @@
                             <td>{{ tour.price }}</td>
                             <td>{{ tour.date }}</td>
                            <td>
-                          {% if not task.is_done %}
-                            <button id="saveTour" data-url="/create-tour">Save changes</button>
-                          {% endif %}
+                                {% if not task.is_done %}
+                                    <button type="button" class="btn btn-primary" id="saveTour">Save changes</button>
+                               {% endif %}
                            </td>
                       </tr>
-                    {% endfor %}
+
                     </tbody>
                 </table>
     </div>
   </div>
+    {% endfor %}
     <button type="button" class="tour-buy" >Buy now</button>
-  {% endfor %}
 </div>
-
-
 
     <div id="tours">
         {% for t in tours %}
         <h3>{{ t.name }}</h3>
         {% endfor %}
     </div>
+
+
 {% endblock %}
 
 
