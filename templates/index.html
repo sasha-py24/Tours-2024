@@ -7,40 +7,32 @@
 <button type="button" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#regModal">Registration</button>
 
 
+
 <div class="card" style="width: 18rem;">
   {% for t in tours %}
   <div class="card-body">
     <div class="card-title">
     </div>
     <div class="card-text" id="tourCard{{ t.id }}">
-        <table style="width:100%" border="1px">
-                    <tbody>
-                      <tr id="tour{{ tour.id }}">
-                            <td></td>
-                            <td>{{ tour.city }}</td>
-                            <td>{{ tour.days }}</td>
-                            <td>{{ tour.price }}</td>
-                            <td>{{ tour.date }}</td>
-                           <td>
-                                {% if not task.is_done %}
-                                    <button type="button" class="btn btn-primary" id="saveTour">Save changes</button>
-                               {% endif %}
-                           </td>
-                      </tr>
+                <ul id="tour{{ t.id }}">
+                            <li>{{ t.name }}</li>
+                            <li>{{ t.city }}</li>
+                            <li>{{ t.days }}</li>
+                            <li>{{ t.price }}$</li>
+                            <li>{{ t.date }}</li>
+<!--                        <button type="button" class="tour-buy">Buy now</button>-->
+                </ul>
 
-                    </tbody>
-                </table>
     </div>
   </div>
     {% endfor %}
-    <button type="button" class="tour-buy" >Buy now</button>
 </div>
 
-    <div id="tours">
-        {% for t in tours %}
-        <h3>{{ t.name }}</h3>
-        {% endfor %}
-    </div>
+<!--    <div id="tours">-->
+<!--        {% for t in tours %}-->
+<!--        <h3>{{ t.name }}</h3>-->
+<!--        {% endfor %}-->
+<!--    </div>-->
 
 
 {% endblock %}
@@ -57,8 +49,8 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <input type="text" id="userName"> <!-- Форма для user -->
-            <input type="text" id="userEmail">
+            <input type="text" id="userName" placeholder="name" > <!-- Форма для user -->
+            <input type="text" id="userEmail" placeholder="email">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -73,36 +65,34 @@
 
 {% block modals %}
 
-<!--  <div class="modal fade" id="tourModal" tabindex="-1" aria-labelledby="tourModalLabel" aria-hidden="true">-->
-<!--    <div class="modal-dialog">-->
-<!--      <div class="modal-content">-->
-<!--        <div class="modal-header">-->
-<!--          <h1 class="modal-title fs-5" id="tourModalLabel">Modal title</h1>-->
-<!--          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--        </div>-->
-<!--        <div class="modal-body">&lt;!&ndash; Форма для створення туру &ndash;&gt;-->
-<!--             <input type="text" id="tourName">-->
-<!--             <input type="text" id="tourCity">-->
-<!--             <input type="number" id="tourDays">-->
-<!--             <input type="number" id="tourPrice">-->
-<!--             <input type="date" id="tourDate">-->
-<!--        </div>-->
-<!--        <div class="modal-footer">-->
-<!--          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-<!--          <button type="button" class="btn btn-primary" id="saveTour">Save changes</button>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
+<div class="modal fade" id="tourModal" tabindex="-1" aria-labelledby="tourModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="tourModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <input type="text" id="tourName" placeholder="name">
+            <input type="text" id="tourCity" placeholder="city">
+            <input type="number" id="tourDays" placeholder="days">
+            <input type="number" id="tourPrice" placeholder="price">
+            <input type="date" id="tourDate" placeholder="date">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
+          <button type="button" class="btn btn-primary" id="saveTour">Save changes</button>
+      </div>
+    </div>
+</div>
 
 {% endblock %}
-
 
 
 {% block scripts %}
 
   <script src="/static/js/create-tour.js"></script>
   <script src="/static/js/register.js"></script>
-
+  <script src="/static/js/tour-buy.js"></script>
 
 {% endblock %}
