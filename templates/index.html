@@ -4,18 +4,18 @@
 {% block content %}
 
 <button type="button" class="btn btn-lg btn-primary"   data-bs-toggle="modal" data-bs-target="#tourModal">Add Tour</button>
-<button type="button" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#regModal">Registration</button>
 
+<a href="{{ url_for('register') }}"><button type="button" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#regModal">Registration</button>
+</a>
 
-
-<div class="card" style="width: 18rem;">
+<div class="card" style="width: 18rem;" id="tours">
   {% for t in tours %}
   <div class="card-body">
     <div class="card-title">
     </div>
     <div class="card-text" id="tourCard{{ t.id }}">
                 <ul id="tour{{ t.id }}">
-                            <li>{{ t.name }}</li>
+                            <h5>{{ t.name }}</h5>
                             <li>{{ t.city }}</li>
                             <li>{{ t.days }}</li>
                             <li>{{ t.price }}$</li>
@@ -41,24 +41,24 @@
 
 {% block register %}
 
-      <div class="modal fade" id="regModal" tabindex="-1" aria-labelledby="regModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="regModalLabel">Modal title</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <input type="text" id="userName" placeholder="name" > <!-- Форма для user -->
-            <input type="text" id="userEmail" placeholder="email">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="saveForm">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
+<!--      <div class="modal fade" id="regModal" tabindex="-1" aria-labelledby="regModalLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog">-->
+<!--      <div class="modal-content">-->
+<!--        <div class="modal-header">-->
+<!--          <h1 class="modal-title fs-5" id="regModalLabel">Modal title</h1>-->
+<!--          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+<!--            <input type="text" id="userName" placeholder="name" > &lt;!&ndash; Форма для user &ndash;&gt;-->
+<!--            <input type="text" id="userEmail" placeholder="email">-->
+<!--        </div>-->
+<!--        <div class="modal-footer">-->
+<!--          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--          <button type="button" class="btn btn-primary" id="saveForm">Save changes</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 
 {% endblock %}
 
@@ -92,7 +92,6 @@
 {% block scripts %}
 
   <script src="/static/js/create-tour.js"></script>
-  <script src="/static/js/register.js"></script>
   <script src="/static/js/tour-buy.js"></script>
 
 {% endblock %}
