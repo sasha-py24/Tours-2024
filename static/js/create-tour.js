@@ -12,31 +12,36 @@ $('#saveTour').click(function(){
                 },
 
         'success': function(response){
-                var addTour = `
-                                    <li>${response.name}</li>
-                                    <li>${response.city}</li>
-                                    <li>${response.days}</li>
-                                    <li>${response.price}</li>
-                                    <li>${response.date}</li>
-                                    `
+                `
+                                    <h5>$('#tourName').val()</h5>
+                                    <li>$('#tourCity').val()</li>
+                                    <li>$('#tourDays').val()</li>
+                                    <li>$('#tourPrice').val()</li>
+                                    <li>$('#tourDate').val()</li>
+                              `
+                document.getElementById(`tours`).innerHTML +=
 
-                document.getElementById(`tourCard${response.id}`).innerHTML = addTour
-
+                `
+                      <div class="card-body">
+                        <div class="card-title">
+                        </div>
+                        <div class="card-text" id="tourCard{{ t.id }}">
+                                    <ul id="tour{{ t.id }}">
+                                        <h5>$('#tourName').val()</h5>
+                                        <li>$('#tourCity').val()</li>
+                                        <li>$('#tourDays').val()</li>
+                                        <li>$('#tourPrice').val()</li>
+                                        <li>$('#tourDate').val()</li>
+                                    </ul>
+                        </div>
+                      </div>
+                `
+                $('#tourName').val(''),
+                $('#tourCity').val(''),
+                $('#tourDays').val(''),
+                $('#tourPrice').val(''),
+                $('#tourDate').val('')
         }
-
-//                                `
-//
-//            toursDiv.innerHTML = `<h3>${$('#tourName').val()}</h3>` + toursDiv.innerHTML;
-//            toursDiv.innerHTML = `<h3>${$('#tourCity').val()}</h3>` + toursDiv.innerHTML;
-//            toursDiv.innerHTML = `<h3>${$('#tourDays').val()}</h3>` + toursDiv.innerHTML;
-//            toursDiv.innerHTML = `<h3>${$('#tourPrice').val()}</h3>`+ toursDiv.innerHTML;
-//            toursDiv.innerHTML = `<h3>${$('#tourDate').val()}</h3>` + toursDiv.innerHTML;
-//                $('#tourName').val(''),
-//                $('#tourCity').val(''),
-//                $('#tourDays').val(''),
-//                $('#tourPrice').val(''),
-//                $('#tourDate').val('')
-//        }
     });
 });
 
