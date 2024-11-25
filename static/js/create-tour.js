@@ -27,15 +27,27 @@ $('#saveTour').click(function(){
                         </div>
                         <div class="card-text" id="tourCard{{ t.id }}">
                                     <ul id="tour{{ t.id }}">
+
+
+//                            <h5>{{ t.name }}</h5>
+//                            <li>{{ t.city }}</li>
+//                            <li>{{ t.days }}</li>
+//                            <li>{{ t.price }}$</li>
+//                            <li>{{ t.date }}</li>
+
+
                                         <h5>$('#tourName').val()</h5>
                                         <li>$('#tourCity').val()</li>
                                         <li>$('#tourDays').val()</li>
                                         <li>$('#tourPrice').val()</li>
                                         <li>$('#tourDate').val()</li>
+
+
                                     </ul>
                         </div>
                       </div>
                 `
+                +
                 $('#tourName').val(''),
                 $('#tourCity').val(''),
                 $('#tourDays').val(''),
