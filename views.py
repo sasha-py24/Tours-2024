@@ -29,7 +29,7 @@ def create_tour(name: str = Form(), city: str = Form(), days: int = Form(), pric
 
 
 @app.post('/login')
-async def login(request: Request, username: str = Form(), email: str =Form(), db: Session = Depends(get_db)):  # параметр щоб дістати щось з бд
+async def login(request: Request, username: str = Form(), email: str = Form(), db: Session = Depends(get_db)):  # параметр щоб дістати щось з бд
     user = db.query(User).filter_by(username=username, email=email).first()
     if user is None or email != email:
         return RedirectResponse(url='/login', status_code=302)
@@ -37,13 +37,21 @@ async def login(request: Request, username: str = Form(), email: str =Form(), db
 
 
 
-@app.get('/register', response_class=HTMLResponse)
-def register(request: Request, username=Form(), email=Form(),  db: Session = Depends(get_db)):  # параметр щоб дістати щось з бд
+@app.get('/register', response_class = HTMLResponse)
+def reg(request: Request, db: Session = Depends(get_db)):
+    users = db.query(User).all()
+    return templates.TemplateResponse('register.html', {'users': users, 'request': request})
+
+
+
+@app.post('/register', response_class = HTMLResponse)
+def register(request: Request, username: str = Form(), email: str = Form(), password: str = Form(),  db: Session = Depends(get_db)):  # параметр щоб дістати щось з бд
     username = request.form['username']
     email = request.form['email']
-    user = User(username=username, email=email)
+    password = request.form['password']
+    user = User(username=username, email=email, password=password)
     db.add(user)
     db.commit()
     db.refresh(user)
-    return templates.TemplateResponse('register.html', {'user': user, 'request': request})
+    return templates.RedirectResponse('register.html', {'user': user, 'request': request})
 
