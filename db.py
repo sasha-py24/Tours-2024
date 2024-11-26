@@ -39,6 +39,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     username = Column(String(50), unique=True, nullable=False)
     email = Column(String(50), nullable=False)
+    password = db.Column(db.String(60), nullable=False)
     is_admin = Column(Boolean, default=False)
 
 #     user = db.query(User).get(1) add user to admin
