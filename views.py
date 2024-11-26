@@ -39,6 +39,8 @@ async def login(request: Request, username: str = Form(), email: str =Form(), db
 
 @app.get('/register', response_class=HTMLResponse)
 def register(request: Request, username=Form(), email=Form(),  db: Session = Depends(get_db)):  # параметр щоб дістати щось з бд
+    username = request.form['username']
+    email = request.form['email']
     user = User(username=username, email=email)
     db.add(user)
     db.commit()
