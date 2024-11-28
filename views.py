@@ -2,7 +2,7 @@ import datetime
 
 from config import app, templates
 from fastapi.responses import HTMLResponse, RedirectResponse
-from fastapi import Request, Depends, Form
+from fastapi import Request, Depends, Form, status
 
 from sqlalchemy.orm import Session
 
@@ -28,11 +28,17 @@ def create_tour(name: str = Form(), city: str = Form(), days: int = Form(), pric
 
 
 
+
+
+
 @app.post('/login')
-async def login(request: Request, username: str = Form(), email: str = Form(), db: Session = Depends(get_db)):  # параметр щоб дістати щось з бд
-    user = db.query(User).filter_by(username=username, email=email).first()
-    if user is None or email != email:
+async def login(request: Request, username: str = Form(), password: str = Form(), db: Session = Depends(get_db)):
+    user = db.query(User).filter_by(username=username, password=password).first()
+    if user is None:
         return RedirectResponse(url='/login', status_code=302)
+    if user in user:
+        session_id = Session(user['user_id'])
+        return{"message": "Logged in successfully", "session_id": session_id}
     return templates.TemplateResponse('index.html', {'users': user, 'request': request})
 
 
@@ -44,14 +50,13 @@ def reg(request: Request, db: Session = Depends(get_db)):
 
 
 
-@app.post('/register', response_class = HTMLResponse)
+@app.post('/register')
 def register(request: Request, username: str = Form(), email: str = Form(), password: str = Form(),  db: Session = Depends(get_db)):  # параметр щоб дістати щось з бд
-    username = request.form['username']
-    email = request.form['email']
-    password = request.form['password']
     user = User(username=username, email=email, password=password)
     db.add(user)
     db.commit()
     db.refresh(user)
-    return templates.RedirectResponse('register.html', {'user': user, 'request': request})
+    return RedirectResponse('/', status_code=303)
+
+
 
