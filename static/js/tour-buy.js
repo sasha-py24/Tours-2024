@@ -11,10 +11,10 @@ $('#saveBuy').click(function(){
                 },
 
         'success': function(response){
-            $('#tourCity').val('');
-            $('#tourDays').val('');
-            $('#tourPrice').val('');
-            $('#tourDate').val('');
+            $('#user_id').val('');
+            $('#tour_id').val('');
+            $('#start_at').val('');
+            $('#end_at').val('');
 
 
         }
