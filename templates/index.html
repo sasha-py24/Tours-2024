@@ -3,12 +3,11 @@
 
 {% block content %}
 
-<button type="button" class="btn btn-lg btn-primary"   data-bs-toggle="modal" data-bs-target="#tourModal">Add Tour</button>
+<button type="button" class="btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#tourModal">Add Tour</button>
 
-<a href="{{ url_for('register') }}"><button type="button" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#regModal">Registration</button>
-</a>
+<a href="{{ url_for('register') }}"><button type="button" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#regModal">Registration</button></a>
 
-<div class="card" style="width: 18rem;" id="tours">
+<div style="width: 18rem;" id="tours">
   {% for t in tours %}
   <div class="card-body">
     <div class="card-title">
@@ -20,9 +19,8 @@
                             <li>{{ t.days }}</li>
                             <li>{{ t.price }}$</li>
                             <li>{{ t.date }}</li>
-<!--                        <button type="button" class="tour-buy">Buy now</button>-->
                 </ul>
-
+        <button type="button" class="btn btn-outline-success" data-bs-target="#buyModal" data-bs-toggle="modal">Buy Tour</button>
     </div>
   </div>
     {% endfor %}
@@ -62,7 +60,29 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="buyModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <input type="text" id="user_id" placeholder="name">
+            <input type="text" id="tour_id" placeholder="city">
+            <input type="date" id="start_at" placeholder="start_at">
+            <input type="date" id="end_at" placeholder="end_at">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
+          <button type="button" class="btn btn-primary" id="saveBuy">Save changes</button>
+      </div>
+    </div>
+</div>
+
 {% endblock %}
+
 
 
 {% block scripts %}
