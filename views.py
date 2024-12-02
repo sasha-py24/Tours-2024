@@ -6,7 +6,7 @@ from fastapi import Request, Depends, Form, status
 
 from sqlalchemy.orm import Session
 
-from db import get_db, User, Admin, Tour
+from db import get_db, User, Admin, Tour, Buy
 
 
 
@@ -28,19 +28,27 @@ def create_tour(name: str = Form(), city: str = Form(), days: int = Form(), pric
 
 
 
-
-
-
 @app.post('/login')
 async def login(request: Request, username: str = Form(), password: str = Form(), db: Session = Depends(get_db)):
     user = db.query(User).filter_by(username=username, password=password).first()
     if user is None:
         return RedirectResponse(url='/login', status_code=302)
-    if user in user:
-        session_id = Session(user['user_id'])
-        return{"message": "Logged in successfully", "session_id": session_id}
-    return templates.TemplateResponse('index.html', {'users': user, 'request': request})
+    request.session['user_id'] = user.id
+    request.session['is_auto'] = True
 
+    return RedirectResponse(url='/', status_code=302)
+
+
+
+@app.post('/logout')
+async def logout(request: Request, username: str = Form(), password: str = Form(), db: Session = Depends(get_db)):
+    user = db.query(User).filter_by(username=username, password=password).first()
+    if user is None:
+        return RedirectResponse(url='/login', status_code=302)
+    request.session['user_id'] = user.id
+    request.session['is_auto'] = False
+
+    return RedirectResponse(url='/', status_code=302)
 
 
 @app.get('/register', response_class = HTMLResponse)
@@ -59,4 +67,19 @@ def register(request: Request, username: str = Form(), email: str = Form(), pass
     return RedirectResponse('/', status_code=303)
 
 
+@app.get('/buy', response_class=HTMLResponse)
+def index(request: Request, db: Session = Depends(get_db)):  # параметр щоб дістати щось з бд
+    tours = db.query(Tour).all()
+    return templates.TemplateResponse('index.html', {'tours': tours, 'request': request})
 
+
+
+@app.post('/buy-tour')
+def buy_tour(user_id: str = Form(), tour_id: str = Form(), start_at: str = Form(), end_at: str = Form(), db: Session = Depends(get_db)):  # параметр щоб дістати щось з бд
+    start_at = datetime.datetime.strptime(start_at, '%Y-%m-%d')
+    end_at = datetime.datetime.strptime(end_at, '%Y-%m-%d')
+    buy = Buy(user_id=user_id, tour_id=tour_id, start_at=start_at, end_at=end_at)
+    db.add(buy)
+    db.commit()
+    db.refresh(buy)
+    return {}
