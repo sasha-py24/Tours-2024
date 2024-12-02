@@ -6,7 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 
 
-DATABASE_URI = 'sqlite:///base.db'    # const не можна перезаписувати, сюди  вказуємо шдях до нашої БД
+DATABASE_URI = 'sqlite:///app.db'    # const не можна перезаписувати, сюди  вказуємо шдях до нашої БД
 
 
 engine = create_engine(DATABASE_URI) # обєкт який відповідає за підключення до БД
@@ -51,6 +51,7 @@ class Admin(Base):
     __tablename__ = 'admin'
 
     id = Column(Integer, primary_key=True)
+    name = Column(String(50), nullable=False)
     is_user = Column(Boolean, default=False)
 
 
