@@ -6,10 +6,10 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 
 
-DATABASE_URI = 'sqlite:///app.db'    # const не можна перезаписувати, сюди  вказуємо шдях до нашої БД
+DATABASE_URI = 'sqlite:///base.db'    # const не можна перезаписувати, сюди вказуємо шlях до нашої БД
 
 
-engine = create_engine(DATABASE_URI) # обєкт який відповідає за підключення до БД
+engine = create_engine(DATABASE_URI) # об'єкт який відповідає за підключення до БД
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
@@ -18,7 +18,7 @@ Base = declarative_base()
 def get_db():
     db = SessionLocal()             #  створюємо обєкт
     try:
-        yield db                    # db генерує повертає обєкт дб
+        yield db                    # db генерує повертає об'єкт дб
     finally:
         db.close()
 
@@ -31,6 +31,12 @@ class ModelMetaDatesMixin(Base):    # розширити функціонал і
     start_at = Column(DateTime, default=datetime.utcnow)
     end_at = Column(DateTime, default=datetime.utcnow)
 
+
+class Admin(Base):
+    __tablename__ = 'admin'
+
+    id = Column(Integer, primary_key=True)
+    is_user = Column(Boolean, default=False)
 
 
 class User(Base):
@@ -47,14 +53,6 @@ class User(Base):
 #     db.commit()
 
 
-class Admin(Base):
-    __tablename__ = 'admin'
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String(50), nullable=False)
-    is_user = Column(Boolean, default=False)
-
-
 class Tour(Base):
     __tablename__ = 'tour'          # як буде називатись табл в SQl
 
@@ -64,6 +62,8 @@ class Tour(Base):
     days = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Integer, nullable=False)
     date = Column(DateTime, nullable=False)
+
+    images = Column(Text, default="/static/images/rio.jpg")
 
 
 
