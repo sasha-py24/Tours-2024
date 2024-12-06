@@ -1,4 +1,5 @@
 $('#saveTour').click(function(){
+    data.append('images', data.getElementById('images').files[0])
     $.ajax('/create-tour', {
         'type': 'POST',
         'async': true,
@@ -8,7 +9,9 @@ $('#saveTour').click(function(){
             'city': $('#tourCity').val(),
             'days': $('#tourDays').val(),
             'price': $('#tourPrice').val(),
-            'date': $('#tourDate').val()
+            'date': $('#tourDate').val(),
+            'processData': false,
+            'contentType': false,
                 },
 
         'success': function(response){
