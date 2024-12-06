@@ -6,6 +6,7 @@
 <button type="button" class="btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#tourModal">Add Tour</button>
 
 <a href="{{ url_for('register') }}"><button type="button" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#regModal">Registration</button></a>
+<a href="{{ url_for('login') }}"><button type="button" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#regModal">Login</button></a>
 
 <div style="width: 18rem;" id="tours">
   {% for t in tours %}
@@ -20,18 +21,12 @@
                             <li>{{ t.price }}$</li>
                             <li>{{ t.date }}</li>
                 </ul>
+
         <button type="button" class="btn btn-outline-success" data-bs-target="#buyModal" data-bs-toggle="modal">Buy Tour</button>
     </div>
   </div>
     {% endfor %}
 </div>
-
-<!--    <div id="tours">-->
-<!--        {% for t in tours %}-->
-<!--        <h3>{{ t.name }}</h3>-->
-<!--        {% endfor %}-->
-<!--    </div>-->
-
 
 {% endblock %}
 
