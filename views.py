@@ -17,6 +17,9 @@ from db import get_db, User, Tour, Buy
 @app.get('/', response_class=HTMLResponse)
 def index(request: Request, db: Session = Depends(get_db)):                             # параметр, щоб дістати щось з бд
     tours = db.query(Tour).all()
+    user = db.query(User).get(1) # add user to admin
+    user.is_admin = True
+    db.commit()
     return templates.TemplateResponse('index.html', {'tours': tours, 'request': request})
 
 
@@ -71,17 +74,20 @@ async def create_tour(
     # беремо поточного юзера і ставимо умову:
     user = db.query(User).get(request.session['user_id'])
     if not user.is_admin:
-        return RedirectResponse('/login')
+        return RedirectResponse('/login', status_code=303)
     date = datetime.datetime.strptime(date, '%Y-%m-%d', )
     tour = Tour(name=name, city=city, days=days, price=price, date=date)
     db.add(tour)
     db.commit()
     db.refresh(tour)
-    with open(f'static/images/{request.session["tour.id"]}.jpg', 'wb') as image:
+    with open(f'static/images/{tour.id}.jpg', 'wb') as image:
+
         content = await images.read()
         image.write(content)
-        user.images = f'/static/images/{request.session["tour.id"]}.jpg'
-    return {'id': 'tour.id'}
+        tour.images = f'/static/images/{tour.id}.jpg'
+        db.commit()
+        db.refresh(tour)
+    return {'id': tour.id}
 
 
 @app.get('/register', response_class=HTMLResponse)      # реєстрація для користувачів
@@ -117,12 +123,12 @@ def buy_tour(user_id: str = Form(), tour_id: str = Form(), start_at: str = Form(
 
 
 
-@app.get('/user_admin', response_class=HTMLResponse)
-def user_admin(db: Session = Depends(get_db)):
-    user = db.query(User).get(1) # add user to admin
-    user.is_admin = True
-    db.commit()
-    return {}
+# @app.get('/user_admin', response_class=HTMLResponse)
+# def user_admin(db: Session = Depends(get_db)):
+#     user = db.query(User).get(1) # add user to admin
+#     user.is_admin = True
+#     db.commit()
+#     return {}
 
 
 
