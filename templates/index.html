@@ -20,6 +20,8 @@
                             <li>{{ t.days }}</li>
                             <li>{{ t.price }}$</li>
                             <li>{{ t.date }}</li>
+                    <img src="{{ t.images }}" alt="..." class="img-thumbnail">
+
                 </ul>
 
         <button type="button" class="btn btn-outline-success" data-bs-target="#buyModal" data-bs-toggle="modal">Buy Tour</button>
@@ -47,6 +49,7 @@
             <input type="number" id="tourDays" placeholder="days">
             <input type="number" id="tourPrice" placeholder="price">
             <input type="date" id="tourDate" placeholder="date">
+            <input type="file" id="images">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div>
