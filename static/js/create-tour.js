@@ -1,18 +1,21 @@
 $('#saveTour').click(function(){
-    data.append('images', data.getElementById('images').files[0])
+    var data = new FormData()                            //поміщяємо всі змінні які хочемо відправити
+    data.append('images', document.getElementById('images').files[0])
+    data.append('name', $('#tourName').val())
+    data.append('city', $('#tourCity').val())
+    data.append('days', $('#tourDays').val())
+    data.append('price', $('#tourPrice').val())
+    data.append('date', $('#tourDate').val())
+
     $.ajax('/create-tour', {
         'type': 'POST',
         'async': true,
         'dataType': 'json',
-        'data': {
-            'name': $('#tourName').val(),
-            'city': $('#tourCity').val(),
-            'days': $('#tourDays').val(),
-            'price': $('#tourPrice').val(),
-            'date': $('#tourDate').val(),
+        'data': data,
+
             'processData': false,
-            'contentType': false,
-                },
+            'contentType': false
+                ,
 
         'success': function(response){
             document.getElementById(`tours`).innerHTML +=
