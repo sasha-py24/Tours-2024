@@ -13,7 +13,6 @@ from sqlalchemy.orm import Session
 from db import get_db, User, Tour, Buy
 
 
-
 @app.get('/', response_class=HTMLResponse)
 def index(request: Request, db: Session = Depends(get_db)):                             # параметр, щоб дістати щось з бд
     tours = db.query(Tour).all()
@@ -24,7 +23,10 @@ def index(request: Request, db: Session = Depends(get_db)):                     
 
 
 @app.post('/login')
-async def login(request: Request, email: str = Form(), password: str = Form(), db: Session = Depends(get_db)):
+async def login(request: Request,
+                email: str = Form(),
+                password: str = Form(),
+                db: Session = Depends(get_db)):
     user = db.query(User).filter_by(email=email, password=password).first()             #коли користувач авторизується, ми перевіряємо його данні
     if user is None:
         return RedirectResponse(url='/login?after_fail=True', status_code=302)          # якщо вони не вірні, ми перезавантажуємо користувача на ту саму сторінку але передаємо
@@ -97,7 +99,10 @@ def reg(request: Request, db: Session = Depends(get_db)):
 
 
 @app.post('/register')
-def register(request: Request, username: str = Form(), email: str = Form(), password: str = Form(), db: Session = Depends(get_db)):  # параметр, щоб дістати щось з бд
+def register(request: Request, username: str = Form(),
+             email: str = Form(),
+             password: str = Form(),
+             db: Session = Depends(get_db)):  # параметр, щоб дістати щось з бд
     user = User(username=username, email=email, password=password)
     db.add(user)
     db.commit()
@@ -112,7 +117,11 @@ def index(request: Request, db: Session = Depends(get_db)):         # парам
 
 
 @app.post('/buy-tour')
-def buy_tour(user_id: str = Form(), tour_id: str = Form(), start_at: str = Form(), end_at: str = Form(), db: Session = Depends(get_db)):
+def buy_tour(user_id: str = Form(),
+             tour_id: str = Form(),
+             start_at: str = Form(),
+             end_at: str = Form(),
+             db: Session = Depends(get_db)):
     start_at = datetime.datetime.strptime(start_at, '%Y-%m-%d')     # використовуємо спеціальне закодоване значення для помітки часу
     end_at = datetime.datetime.strptime(end_at, '%Y-%m-%d')
     buy = Buy(user_id=user_id, tour_id=tour_id, start_at=start_at, end_at=end_at)
@@ -122,13 +131,6 @@ def buy_tour(user_id: str = Form(), tour_id: str = Form(), start_at: str = Form(
     return {}
 
 
-
-# @app.get('/user_admin', response_class=HTMLResponse)
-# def user_admin(db: Session = Depends(get_db)):
-#     user = db.query(User).get(1) # add user to admin
-#     user.is_admin = True
-#     db.commit()
-#     return {}
 
 
 
