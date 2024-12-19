@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 import db
 from sqlalchemy import create_engine, Column, Integer, String, DateTime, ForeignKey, Boolean, Text
 from sqlalchemy.ext.declarative import declarative_base
@@ -14,14 +15,12 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
-
 def get_db():
     db = SessionLocal()             #  створюємо обєкт
     try:
         yield db                    # db генерує повертає об'єкт дб
     finally:
         db.close()
-
 
 
 class ModelMetaDatesMixin(Base):    # розширити функціонал іншого Mixin
@@ -48,10 +47,6 @@ class User(Base):
     password = db.Column(db.String(60), nullable=False)
     is_admin = Column(Boolean, default=False)
 
-#     user = db.query(User).get(1) add user to admin
-#     user.is_admin = True
-#     db.commit()
-
 
 class Tour(Base):
     __tablename__ = 'tour'          # як буде називатись табл в SQl
@@ -62,9 +57,7 @@ class Tour(Base):
     days = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Integer, nullable=False)
     date = Column(DateTime, nullable=False)
-
     images = Column(Text, default="/static/images/rio.jpg")
-
 
 
 class Buy(ModelMetaDatesMixin):
