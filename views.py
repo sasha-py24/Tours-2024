@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 
 
 from db import get_db, User, Tour, Buy
+from const import TOUR_HTML
 
 
 @app.get('/', response_class=HTMLResponse)
@@ -131,7 +132,17 @@ def buy_tour(user_id: str = Form(),
     return {}
 
 
-
-
-
+@app.post('/search')
+def search(search:str = Form(),  db: Session = Depends(get_db)):
+    tours = db.query(Tour).filter_by(name=search)
+    result = ""
+    for tour in tours:                                          # перебираємо всі тури
+        result += TOUR_HTML.format(tour_id=tour.id,             # конст зміннна де зберігаються штмл код тура
+                                   tour_name=tour.name,
+                                   tour_city=tour.city,
+                                   tour_days=tour.days,
+                                   tour_price=tour.price,
+                                   tour_date=tour.date,
+                                   tour_images=tour.images)
+    return {'tours': result}
 
