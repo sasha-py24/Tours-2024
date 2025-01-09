@@ -6,17 +6,13 @@ $('#saveTour').click(function(){
     data.append('days', $('#tourDays').val())
     data.append('price', $('#tourPrice').val())
     data.append('date', $('#tourDate').val())
-
-    $.ajax('/create-tour', {
+    $.ajax('/create-tour',{
         'type': 'POST',
         'async': true,
         'dataType': 'json',
         'data': data,
-
-            'processData': false,
-            'contentType': false
-                ,
-
+        'processData': false,
+        'contentType': false,
         'success': function(response){
             document.getElementById(`tours`).innerHTML +=
                 `
