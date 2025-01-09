@@ -7,8 +7,6 @@ $('#idSearch').click(function(){
         'success':
         function(response){
             document.getElementById(`tours`).innerHTML = response.tours;
-            if  = '':
-                tours.all();
         }
     });
 });
