@@ -9,14 +9,11 @@ $('#saveBuy').click(function(){
             'start_at': $('#start_at').val(),
             'end_at': $('#end_at').val()
                 },
-
         'success': function(response){
             $('#user_id').val('');
             $('#tour_id').val('');
             $('#start_at').val('');
             $('#end_at').val('');
-
-
         }
     });
 });
